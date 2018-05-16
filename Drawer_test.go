@@ -1,11 +1,36 @@
 package drawer_test
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
 	"github.com/maxbet1507/drawer"
 )
+
+func Example() {
+	d := drawer.New()
+
+	d.Push(123, "hello", true)
+	d.Push(fmt.Errorf("world"), false, 456)
+
+	rv1 := []int{}
+	d.Pull(&rv1)
+	fmt.Println(rv1)
+
+	rv2 := []string{}
+	d.Pull(&rv2)
+	fmt.Println(rv2)
+
+	rv3 := []error{}
+	d.Pull(&rv3)
+	fmt.Println(rv3)
+
+	// Output:
+	// [123 456]
+	// [hello]
+	// [world]
+}
 
 type testInterface1 interface {
 	FakeFunc1()
